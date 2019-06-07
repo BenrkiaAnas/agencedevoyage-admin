@@ -1,0 +1,77 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '2px' }" [template]="customLoadingTemplate"></ngx-loading>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Liste des Inclusions</h4>
+        </div>
+        <div class="card-body">
+
+          <button mat-raised-button (click)="addNew()">
+            <mat-icon>add</mat-icon>
+            Add Inclusion
+          </button>
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+          </mat-form-field>
+          <div>
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="id" matSortDirection="desc" matSortDisableClear>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+                  <td mat-cell *matCellDef="let row;index as i;"> {{i+1}} </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="label">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Label</th>
+                  <td mat-cell *matCellDef="let row"> {{row.label}}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="icon">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                  <td mat-cell *matCellDef="let row" ><mat-icon class="editC">{{row.icon}}</mat-icon></td>
+                </ng-container>
+
+                <!-- actions -->
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions</th>
+                  <td mat-cell *matCellDef="let row">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu>
+                      <button mat-menu-item (click)="editClick(row)">
+                        <mat-icon class="edit editC">edit</mat-icon>
+                        <span class="edit" routerLink="">Modifier</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteClick(row)">
+                        <mat-icon class="delete deleteC">delete</mat-icon>
+                        <span class="delete">Supprimer</span>
+                      </button>
+                    </mat-menu>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

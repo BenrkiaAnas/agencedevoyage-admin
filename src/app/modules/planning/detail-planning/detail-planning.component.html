@@ -1,0 +1,155 @@
+<div class="modal-header">
+  <h6 class="modal-title" id="myModalLabel">Référence : {{planningDetail.reference}}</h6>
+  <button aria-hidden="true" class="close mat-button" data-dismiss="modal" mat-button="" type="button"><span
+    class="mat-button-wrapper"><i class="material-icons" (click)="onClose()">close</i></span>
+    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+    <div class="mat-button-focus-overlay"></div>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-6"> Date Départ :
+        <div class="badge badge-info">
+          {{planningDetail.dateBegin | date}}
+        </div>
+      </div>
+      <div class="col-md-6">Date Fin :
+        <div class="badge badge-info">
+          {{planningDetail.dateEnd | date}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-4">N° Jours :
+        <div class="badge badge-info">
+          {{planningDetail.nbrDays}}/jours
+        </div>
+      </div>
+      <div class="col-md-4">N° Nuits :
+        <div class="badge badge-info">
+          {{planningDetail.nbrNight}}/nuits
+        </div>
+      </div>
+      <div class="col-md-4">N° places :
+        <div class="badge badge-info">
+          {{planningDetail.nbrPlace}}/palces
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-6">Prix Adult :
+        <div class="badge badge-info">
+          {{planningDetail.priceAdult | number:'1.2'}} Dhs
+        </div>
+      </div>
+      <div class="col-md-6">Prix Enfant :
+        <div class="badge badge-info">
+          {{planningDetail.priceChild | number:'1.2'}} Dhs
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-6">Archiver :
+        <div class="badge badge-info" *ngIf="planningDetail.visible === false">Oui</div>
+        <div class="badge badge-info" *ngIf="planningDetail.visible === true">Non</div>
+      </div>
+      <div class="col-md-6">Visible au Client :
+        <div class="badge badge-info" *ngIf="planningDetail.isActiver === false">Non</div>
+        <div class="badge badge-info" *ngIf="planningDetail.isActiver === true">Oui</div>
+      </div>
+    </div>
+  </div>
+  <div class="instruction">
+    <div class="row">
+
+      <div class="col-md-12"><strong>Description :</strong>
+        <div class="typography-line">
+          <blockquote>
+            <p class="text-info">
+              {{planningDetail.description}}
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-12"><strong>Voyage Organisé :</strong>
+        <div class="typography-line">
+          <blockquote>
+            <p class="text-info">
+              {{planningDetail.voyageOrganise.title}}
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    <div class="row">
+      <div class="col-md-12"><strong>Hotel :</strong>
+        <div class="typography-line">
+          <blockquote>
+            <p class=" text-info">
+              {{planningDetail.hotel.name}}
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction" *ngIf="planningDetail.promo != null">
+    <div class="row">
+      <div class="col-md-12"><strong>Promotion :</strong>
+        <div class="container">
+          <blockquote>
+            <div *ngIf="planningDetail.promo.typePromo === 'stable'">
+              <div class="badge badge-danger">-{{planningDetail.promo.pourcentage | number:'1.2'}}%</div>
+              {{planningDetail.promo.dateBegin | date}} - {{planningDetail.promo.dateEnd| date}}
+            </div>
+            <div  *ngIf="planningDetail.promo.typePromo === 'special'">
+              <div class="badge badge-danger">-{{planningDetail.promo.pourcentage | number:'1.2'}}%</div>
+              group de {{planningDetail.promo.nbrPersonne}} personnes.
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instruction" *ngIf="planningDetail.inclusion.length !== 0">
+    <div class="row">
+      <div class="col-md-12"><strong>Inclusions :</strong>
+        <div class="container">
+          <div class="badge badge-pill badge-info" *ngFor="let inclusion of planningDetail.inclusion">
+             {{inclusion.label}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-center">
+      <!--<button class="btn btn-info btn-round mat-raised-button" data-dismiss="modal" mat-raised-button=""-->
+      <!--type="button">-->
+      <!--<span class="mat-button-wrapper">Fermer</span>-->
+      <!--<div class="mat-button-ripple mat-ripple" matripple=""></div>-->
+      <!--<div class="mat-button-focus-overlay"></div>-->
+      <!--</button>-->
+    </div>
+  </div>
+</div>
+
+

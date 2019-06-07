@@ -1,0 +1,104 @@
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Voyages Organisés</h4>
+        </div>
+        <div class="card-body">
+          <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '2px' }"
+                       [template]="customLoadingTemplate"></ngx-loading>
+          <div class="col-sm-6">
+            <button mat-raised-button (click)="addNew()" class="zoom">
+              <mat-icon class="addColor">add</mat-icon>
+              Ajouter voyage organisé
+            </button>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-8">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Chercher ...">
+            </mat-form-field>
+            <form [formGroup]="filterForm" class="col-sm-4">
+              <mat-form-field>
+                <mat-select formControlName="typeVoyage" placeholder="Tous"
+                            (selectionChange)="selectChangeHandle($event)">
+                  <mat-option value="tous"> Tous</mat-option>
+                  <mat-option value="a"> Archiver</mat-option>
+                  <mat-option value="na"> Non Archiver</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+          <div>
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="id"
+                     matSortDirection="desc" matSortDisableClear>
+
+                <ng-container matColumnDef="reference">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Réference</th>
+                  <td mat-cell *matCellDef="let row" class="refColor"> {{row.reference}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="destination">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination</th>
+                  <td mat-cell *matCellDef="let row"> {{row.destination}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="activer">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Visible</th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-icon class="visibility activeC" (click)="invisile(row)" *ngIf="row.activer === true"
+                              matTooltip="Ce voyage est visible dans votre site">visibility
+                    </mat-icon>
+                    <mat-icon class="visibility_off blockC" (click)="visile(row)" *ngIf="row.activer === false"
+                              matTooltip="Ce voyage n'est pas visible dans votre site">visibility_off
+                    </mat-icon>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions</th>
+                  <td mat-cell *matCellDef="let row">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu>
+                      <button mat-menu-item (click)="editClick(row)" matTooltip="Modifier" *ngIf="row.visible === true">
+                        <mat-icon class="edit" class="editC">edit</mat-icon>
+                        <span class="edit" routerLink="">Modifier</span>
+                      </button>
+                      <button mat-menu-item (click)="details(row)" matTooltip="Détails">
+                        <mat-icon class="editC">list</mat-icon>
+                        <span class="edit" routerLink="">Détails</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteClick(row)" matTooltip="Supprimer"
+                              *ngIf="row.visible === false">
+                        <mat-icon class="delete" class="deleteC">delete</mat-icon>
+                        <span class="delete">Supprimer</span>
+                      </button>
+                      <button mat-menu-item (click)="archiveClick(row)" matTooltip="Supprimer"
+                              *ngIf="row.visible === true">
+                        <mat-icon class="archiver deleteC">archiver</mat-icon>
+                        <span class="delete">Archiver</span>
+                      </button>
+                    </mat-menu>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<ngb-carousel >
+    <ng-template ngbSlide *ngFor="let image of photos " >
+        <img [src]="url+image.image" alt="Random first slide" width="100%" height="320">
+    </ng-template>
+</ngb-carousel>
+
+
+<div class="card mb-3 margin">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    <p class="card-text"><b>Destination:</b> {{destination}}</p>
+    <p class="card-text"><b>Description: </b>{{description}}</p>
+    <p class="card-text"><b>Categories:</b> </p>
+    <div class="col-sm-12 links" *ngFor="let categorie of Categories" >
+      <div style="float:left;height:50px;"  [ngStyle]="{'width': 'calc(100% /' + categorie.length + ')'}">
+          <span class="tag"> # {{categorie.label}} </span>
+      </div>
+    </div>
+    <p class="card-text"><small class="text-muted"></small></p>
+  </div>
+</div>
+

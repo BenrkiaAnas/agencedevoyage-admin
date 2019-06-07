@@ -1,0 +1,57 @@
+<div class="main-content" *ngIf="role === 'sa'">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Historiques Des Actions Administrateurs</h4>
+        </div>
+        <div class="card-body">
+          <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '2px' }"
+                       [template]="customLoadingTemplate"></ngx-loading>
+          <ng-container matColumnDef="id">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Chercher...">
+            </mat-form-field>
+          </ng-container>
+          <div>
+
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="date"
+                     matSortDirection="desc" matSortDisableClear>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef class="bigger"></th>
+                  <td mat-cell *matCellDef="let row" class="bigger">
+                    {{row.action}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="admin">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let row"> &nbsp;&nbsp; Par&nbsp;<i class="style2">{{row.admin}} </i></td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let row"> &nbsp;&nbsp; &nbsp;<i class="style">{{row.date | dateAgo}}</i>
+                    <i class="style3">&nbsp;({{row.date | date:'medium'}})</i></td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

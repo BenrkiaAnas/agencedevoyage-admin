@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Details du profil</h2>
+<mat-dialog-content>
+  <div class="main-content" *ngIf="isauthenticated() === true">
+    <form [formGroup]="registerForm">
+      <div class="controles-container">
+        <input matInput formControlName="id" [hidden]="true">
+        <mat-form-field class="col-12">
+          <!--<label matTabLabel="" formControlName="username" placeholder="">-->
+          <!--<mat-label >mmmm</mat-label>-->
+            <input matInput formControlName="username" placeholder="Username: ">
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <input matInput formControlName="email" placeholder="Email: ">
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <input matInput formControlName="nom" placeholder="Nom: ">
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <input matInput formControlName="prenom" placeholder="Prenom: ">
+        </mat-form-field>
+
+
+        <mat-form-field class="col-12">
+          <input matInput formControlName="role" placeholder="Role">
+        </mat-form-field>
+
+      </div>
+      <div class="button-row">
+        <button mat-raised-button color="warn" class="bclose" (click)="onClose()">Close</button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+

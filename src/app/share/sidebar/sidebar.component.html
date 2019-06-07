@@ -1,0 +1,93 @@
+
+<div class="logo">
+  <a href="" class="simple-text logo-mini">
+    <div class="logo-img">
+      <img src="./assets/img/now-logo.png"/>
+    </div>
+  </a>
+  <a href="" class="simple-text logo-normal">
+    Voyage pour tous
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+      <a [routerLink]="[menuItem.path]">
+        <i class="now-ui-icons {{menuItem.icon}}"></i>
+        <p>{{menuItem.title}}</p>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<!--<div class="sidebar">-->
+<!--<div class="logo">-->
+  <!--<a href="" class="simple-text logo-mini">-->
+    <!--<div class="logo-img">-->
+      <!--<img src="./assets/img/angular2-logo-white.png"/>-->
+    <!--</div>-->
+  <!--</a>-->
+  <!--<a href="" class="simple-text logo-normal">-->
+    <!--AV-Admin-->
+  <!--</a>-->
+<!--</div>-->
+<!--<div class="sidebar-wrapper" id="sidebar-wrapper">-->
+  <!--<ul class="nav">-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="home">-->
+        <!--<i class="now-ui-icons design_app"></i>-->
+        <!--<p>Dashboard</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="/hotels">-->
+        <!--<i class="now-ui-icons shopping_shop"></i>-->
+        <!--<p>Gestion Hotels</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="/voyage">-->
+        <!--<i class="now-ui-icons media-1_album"></i>-->
+        <!--<p>Voyage Organisé</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="planning">-->
+        <!--<i class="now-ui-icons location_map-big"></i>-->
+        <!--<p>Gestion des Plannings</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li *ngIf="role === 'sa'" >-->
+      <!--<a routerLink="/admin">-->
+        <!--<i class="now-ui-icons users_single-02"></i>-->
+        <!--<p>Gestion des Admins</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="/inclusion">-->
+        <!--<i class="now-ui-icons shopping_tag-content"></i>-->
+        <!--<p>Gestion des Inclusions</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="/categorie">-->
+        <!--<i class="now-ui-icons ui-1_calendar-60"></i>-->
+        <!--<p>Gestion des Categories</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+      <!--<a routerLink="/promotion">-->
+        <!--<i class="now-ui-icons business_chart-bar-32"></i>-->
+        <!--<p>Gestion des Promotions</p>-->
+      <!--</a>-->
+    <!--</li>-->
+    <!--<li *ngIf="role === 'sa'">-->
+      <!--<a routerLink="/log">-->
+        <!--<i class="now-ui-icons education_paper"></i>-->
+        <!--<p>Historiques</p>-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+<!--</div>-->

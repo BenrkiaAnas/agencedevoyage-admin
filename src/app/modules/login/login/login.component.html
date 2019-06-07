@@ -1,0 +1,31 @@
+
+<div id="particles-js" *ngIf=" isauthenticated() === false"></div>
+
+<div class="wrapper fadeInDown " *ngIf=" isauthenticated() === false">
+  <div id="formContent">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../assets/img/wij.png" id="icon" alt="User Icon" />
+    </div>
+    <form #f="ngForm" (ngSubmit)="onLogin(f.value)">
+      <div class="form-group">
+        <input type="text" class="fadeIn second" placeholder="Username" name="username" ngModel />
+      </div>
+      <div class="form-group">
+        <input type="password" class="fadeIn second" placeholder="Mot de passe" name="password" ngModel />
+      </div>
+      <div *ngIf="message" class="message">* {{message}}</div>
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '2px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-dark">Connexion</button>
+      </div>
+    </form>
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Mot de passe Oublié ?</a>
+    </div>
+  </div>
+</div>
+
+

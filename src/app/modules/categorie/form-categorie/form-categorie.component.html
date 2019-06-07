@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{action}} a Catégorie</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm">
+    <div class="controles-container">
+      <input matInput formControlName="id" [hidden]="true">
+      <mat-form-field class="col-12">
+        <input matInput formControlName="label" placeholder="Label *">
+        <mat-error *ngIf="registerForm.controls['label'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()"
+                [disabled]="!registerForm.valid">{{action}}</button>
+        <button mat-raised-button color="warn"  class="bclose" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  </form>
+
+</mat-dialog-content>

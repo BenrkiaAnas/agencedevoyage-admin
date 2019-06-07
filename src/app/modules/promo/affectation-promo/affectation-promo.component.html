@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Affectation Promotion</h2>
+<mat-dialog-content>
+<mat-horizontal-stepper linear #stepper>
+  <mat-step [stepControl]="registerFormPromo" errorMessage="* Promotion est obligatoire.">
+    <form [formGroup]="registerFormPromo">
+      <ng-template matStepLabel>Choisir Promotion</ng-template>
+      <div class="controles-container">
+        <mat-form-field class="col-12">
+          <mat-select formControlName="promo" placeholder="Promotion *" [value]="prm" [compareWith]="typePromoCompare" #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search   [formControl]="promoFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let prm of filteredPromo | async" [value]="prm" >
+              <mat-chip>{{prm.pourcentage}} %</mat-chip> - Nom Promotion : {{prm.label}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerFormPromo.controls['promo'].errors?.required">* Champ obligatoire.
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button color="primary" (click)="initFormPromoSelected()"
+                  [disabled]="!registerFormPromo.valid" class="col-4" matStepperNext>Suivant
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Ajouter Planning</ng-template>
+    <mat-form-field class="col-12">
+      <mat-chip-list #chipList>
+      <mat-chip
+              *ngFor="let elem of _planningsToAdd"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(elem)">
+        {{elem.reference}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+        <input (click)="onChangeFilteredPlanning()"
+               placeholder="Ajouter Planning ..."
+               #planningInput
+               [formControl]="planningFormCtrl"
+               [matAutocomplete]="auto"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let plannings of filtredPlanning  | async" [value]="plannings">
+          {{plannings.reference}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="col-md-6 mx-auto">
+      <button mat-raised-button (click)="redirectToPlanning()">Crée un nouveau Planning</button>
+    </div>
+    <br/><br/>
+    <div class="row">
+      <div class="col-md-6">
+        <button mat-raised-button class="col-4" matStepperPrevious>Retourn</button>
+        <button mat-raised-button color="primary" (click)="onSubmitPlanning()"
+                   class="col-4" matStepperNext>Suivant
+        </button>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Terminer</ng-template>
+
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <button mat-raised-button color="warn" (click)="onClose()" class="col-4" matStepperNext>Fermer</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+</mat-dialog-content>

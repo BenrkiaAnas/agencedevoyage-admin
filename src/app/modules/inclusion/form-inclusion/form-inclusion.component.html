@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{action}} a Inclusion</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm">
+    <div class="controles-container">
+      <input matInput formControlName="id" [hidden]="true">
+      <mat-form-field class="col-12">
+        <input matInput formControlName="label" placeholder="Label *">
+        <mat-error *ngIf="registerForm.controls['label'].errors">* This field is mandatory.</mat-error>
+
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <mat-label>Selectionné une icon </mat-label>
+        <mat-select formControlName="icon">
+          <mat-option *ngFor="let icon of arrayIcon" [value]="icon">
+            <mat-icon>{{icon}}</mat-icon>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()"
+                [disabled]="!registerForm.valid">{{action}}</button>
+        <button mat-raised-button color="warn" class="bclose" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  </form>
+
+</mat-dialog-content>

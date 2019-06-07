@@ -1,0 +1,41 @@
+<div class="card mb-3 margin">
+  <div class="card-body">
+    <h4 class="card-title"><b>Pourcentage : </b>{{promoDetail.pourcentage}}</h4>
+    <h5 class="card-title"><b>Nom Promotion : </b>{{promoDetail.label}}</h5>
+    <br>
+    <div class="row justify-content-md-center">
+      <div class="col-2 col-lg-4">
+        <p class="card-text">
+          <b>Date Départ: </b>{{promoDetail.dateBegin | date}}</p>
+      </div>
+      <div class="col-2 col-lg-4">
+        <p class="card-text">
+          <b>Date Fin : </b>{{promoDetail.dateEnd | date}}</p>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-2 col-lg-4">
+        <p class="card-text">
+          <b>Type de promotion : </b>{{promoDetail.typePromo}}</p>
+      </div>
+      <div class="col-2 col-lg-4">
+        <p class="card-text">
+          <b>Nombre de personne : </b>{{promoDetail.nbrPersonne}}</p>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-2 col-lg-4">
+        <p class="card-text" *ngIf="promoDetail.visible === false">
+          <b>Visible : </b>Archivé</p>
+        <p class="card-text" *ngIf="promoDetail.visible === true">
+          <b>Visible : </b>Activé</p>
+      </div>
+      <div class="col-2 col-lg-4">
+        <p class="card-text" *ngIf="promoDetail.usingEtat === false">
+          <b>Utilistion : </b>Ce promo n'est pas affecter à une planning</p>
+        <p class="card-text" *ngIf="promoDetail.usingEtat === true">
+          <b>Utilistion : </b>Ce promo est affectée à une planning</p>
+      </div>
+    </div>
+  </div>
+</div>

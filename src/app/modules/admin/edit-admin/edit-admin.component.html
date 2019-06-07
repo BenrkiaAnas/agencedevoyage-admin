@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Modifier un Administrateur</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm">
+    <div class="controles-container">
+      <input matInput formControlName="id" [hidden]="true">
+      <mat-form-field class="col-12">
+        <input matInput formControlName="username" placeholder="Username">
+        <mat-error *ngIf="registerForm.controls['username'].errors">* Champs Obligatoire Min 4 Caractéres.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <input matInput formControlName="email" placeholder="Email">
+        <mat-error *ngIf="registerForm.controls['email'].errors">* Champs Obligatoire et Invalid yourmail@domaine.dom.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <input matInput formControlName="nom" placeholder="Nom">
+        <mat-error *ngIf="registerForm.controls['nom'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <input matInput formControlName="prenom" placeholder="Prenom">
+        <mat-error *ngIf="registerForm.controls['prenom'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <mat-label>Selectionné un rôle</mat-label>
+        <mat-select [(value)]="role" formControlName="role">
+          <mat-option value="Admin">Admin</mat-option>
+          <mat-option value="Super-Admin">Super-Admin</mat-option>
+        </mat-select>
+        <mat-error *ngIf="registerForm.controls['role'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+
+    </div>
+    <mat-error *ngIf="message && messageCode != 0">* {{message}}</mat-error><br>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '2px' }" [template]="customLoadingTemplate"></ngx-loading>
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="!registerForm.valid" >Modifier</button>
+      <button mat-raised-button color="warn" class="bclose" (click)="onClose()">Close</button>
+    </div>
+  </form>
+</mat-dialog-content>

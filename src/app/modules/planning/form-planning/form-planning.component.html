@@ -1,0 +1,192 @@
+<h2 mat-dialog-title>{{action}}  Planning</h2>
+<mat-dialog-content>
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="registerFormVoyage" errorMessage="* Voyage est obligatoire.">
+      <form [formGroup]="registerFormVoyage">
+        <ng-template matStepLabel>Choisir Voyage</ng-template>
+        <div class="controles-container">
+          <mat-form-field class="col-12">
+            <mat-select formControlName="voyageOrganise" placeholder="Voyage Organisé *" [value]="voyage" [compareWith]="typeVoyageCompare" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search   [formControl]="voyageFilterCtrl"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let voyage of filteredVoyages | async" [value]="voyage">
+                {{voyage.title}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['voyageOrganise'].errors?.required">* Champ obligatoire.
+            </mat-error>
+          </mat-form-field>
+          <div class="col-md-6 mx-auto">
+            <button mat-raised-button (click)="redirectToVoyage()">Crée un nouveau Voyage Organisé</button>
+          </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button color="primary" (click)="initFormPlanning()"
+                    [disabled]="!registerFormVoyage.valid" class="col-4" matStepperNext>Suivant
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="registerForm" errorMessage="* Planning est obligatoire.">
+      <form [formGroup]="registerForm">
+        <ng-template matStepLabel>Créer Planning</ng-template>
+        <div class="controles-container">
+          <input matInput formControlName="id" [hidden]="true">
+          <input matInput formControlName="voyageOrganise" [hidden]="true">
+          <mat-form-field class="col-4">
+            <input matInput formControlName="nbrDays" type="number" placeholder="Nombre Jours*">
+            <mat-error *ngIf="registerForm.controls['nbrDays'].errors?.min">* Minimum Un jour nécessaire.</mat-error>
+            <mat-error *ngIf="registerForm.controls['nbrDays'].errors?.pattern">* seuls les chiffres acceptés.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['nbrDays'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-4">
+            <input matInput formControlName="nbrNight" type="number" placeholder="Nombre Nuits">
+            <mat-error *ngIf="registerForm.controls['nbrNight'].errors?.pattern">* seuls les chiffres acceptés.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-4">
+            <input matInput formControlName="nbrPlace" type="number" placeholder="Nombre Places*">
+            <mat-error *ngIf="registerForm.controls['nbrPlace'].errors?.min">* Minimum 10 places nécessaires.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['nbrPlace'].errors?.pattern">* seuls les chiffres acceptés.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['nbrPlace'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-6">
+            <input matInput formControlName="priceAdult" placeholder="Prix Adulte*">
+            <mat-error *ngIf="registerForm.controls['priceAdult'].errors?.min">* Minimum 100 nécessaire.</mat-error>
+            <mat-error *ngIf="registerForm.controls['priceAdult'].errors?.pattern">* seuls les chiffres acceptés.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['priceAdult'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-6">
+            <input matInput formControlName="priceChild" placeholder="Prix Enfant*">
+            <mat-error *ngIf="registerForm.controls['priceChild'].errors?.min">* Minimum 100 nécessaire.</mat-error>
+            <mat-error *ngIf="registerForm.controls['priceChild'].errors?.pattern">* seuls les chiffres acceptés.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['priceChild'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12">
+            <textarea matInput formControlName="description" placeholder="Description*" cdkAutosizeMinRows="10"
+                      cdkAutosizeMaxRows="30"></textarea>
+            <mat-error *ngIf="registerForm.controls['description'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12">
+            <input matInput formControlName="dateBegin" placeholder="Choisir date départ*" [min]="minDate"
+                   [max]="maxDate" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="registerForm.controls['dateBegin'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <mat-select formControlName="hotel" placeholder="Hotel *" [value]="hotel" [compareWith]="typeHotelCompare" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search   [formControl]="hotelFilterCtrl"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let hotel of filteredHotels | async" [value]="hotel">
+                {{hotel.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['hotel'].errors?.required">* Champ obligatoire.</mat-error>
+          </mat-form-field>
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button class="col-4" matStepperPrevious>Retourn</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()"
+                    [disabled]="!registerForm.valid" class="col-4" matStepperNext>{{action}}</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Ajouter Inclusion</ng-template>
+      <mat-form-field class="col-12">
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let elem of _inclusionsToAdd"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(elem)">
+            {{elem.label}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input (click)="onChangeFilteredInclusions()"
+                 placeholder="Ajouter Inclusion ..."
+                 #inclusionInput
+                 [formControl]="incluionFormCtrl"
+                 [matAutocomplete]="auto"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let inclusion of  filteredInclusions | async" [value]="inclusion">
+            {{inclusion.label}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="row">
+        <div class="col-md-6">
+          <button mat-raised-button class="col-4" matStepperPrevious>Retourn</button>
+          <button mat-raised-button color="primary" (click)="onSubmitInclusion()"
+                   class="col-4" matStepperNext>Suivant
+          </button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Affectation Promotion</ng-template>
+      <form [formGroup]="registerFormPromo">
+        <ng-template matStepLabel>Choisir Promo</ng-template>
+        <div class="controles-container">
+          <mat-form-field class="col-12">
+            <mat-select formControlName="promo" placeholder="Promotion *" [value]="promo" [compareWith]="typePromoCompare" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search   [formControl]="promoFilterCtrl"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let promo of filteredPromos | async" [value]="promo">
+                <div *ngIf="promo.typePromo === 'stable'">
+                  <mat-chip color="accent">-{{promo.pourcentage | number:'1.2'}}%</mat-chip>
+                  {{promo.dateBegin | date}} - {{promo.dateEnd| date}}</div>
+                <div *ngIf="promo.typePromo === 'special'">
+                  <mat-chip color="warn">-{{promo.pourcentage | number:'1.2'}}%</mat-chip>
+                  group de {{promo.nbrPersonne}} personnes.
+                </div>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerFormPromo.controls['promo'].errors?.required">* Champ obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <br/><br/>
+        <div class="row">
+          <div class="col-md-6">
+            <button mat-raised-button class="col-4" matStepperPrevious>Retourn</button>
+            <button mat-raised-button color="primary" (click)="onSubmitPromo()"
+                    class="col-4" matStepperNext>Suivant
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Terminer</ng-template>
+
+      <div class="row">
+        <div class="col-md-4 mx-auto">
+          <button mat-raised-button color="warn" (click)="onClose()" class="col-4" matStepperNext>Fermer</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

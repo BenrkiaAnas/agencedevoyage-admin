@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{action}} une Promotion</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm">
+    <div class="controles-container">
+      <input matInput formControlName="id" [hidden]="true">
+      <mat-form-field class="col-12">
+        <input matInput type="text" min="0" formControlName="label" placeholder="Nom Promotion *">
+        <mat-error *ngIf="registerForm.controls['label'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <input matInput type="number" min="0" formControlName="pourcentage" placeholder="Pourcentage *">
+        <mat-error *ngIf="registerForm.controls['pourcentage'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+        <mat-form-field class="col-12">
+            <input matInput [matDatepicker]="picker"  formControlName="dateBegin" placeholder="Date Debut *" (dateChange)="valueChangeDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="registerForm.controls['dateBegin'].errors">* Champs Obligatoire.</mat-error>
+        </mat-form-field>
+      <mat-form-field class="col-12">
+        <input matInput [matDatepicker]="picker1"  readonly formControlName="dateEnd" placeholder="Date Fin *"  id="inpyDate" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="registerForm.controls['dateEnd'].errors">* Champs Obligatoire.</mat-error>
+      </mat-form-field>
+      <div class="col-12">
+        <mat-radio-group  formControlName="typePromo" (change)="radioChange($event)">
+          <mat-radio-button value="stable"  [checked]="true"  >Stable</mat-radio-button>
+          <mat-radio-button value="special" >Special</mat-radio-button>
+
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="col-12" *ngIf="changeType == true" >
+        <input matInput type="number"   formControlName="nbrPersonne"  placeholder="Nombre Personne" min="1">
+      </mat-form-field>
+
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()"
+                [disabled]="!registerForm.valid">{{action}}</button>
+        <button mat-raised-button color="warn"  class="bclose" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  </form>
+
+</mat-dialog-content>

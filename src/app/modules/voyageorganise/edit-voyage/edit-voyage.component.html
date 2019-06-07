@@ -1,0 +1,82 @@
+<mat-dialog-content *ngIf="isauthenticated() === true">
+<div class="main-content" >
+  <div class="row">
+    <div class="col-md-11 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Modification du voyage : </h4>
+        </div>
+        <div class="card-body">
+          <mat-horizontal-stepper linear #stepper>
+            <mat-step [stepControl]="registerForm">
+              <ng-template matStepLabel>Modification Voyage Organisé</ng-template>
+                   <form [formGroup]="registerForm">
+                    <div class="controles-container">
+                      <!--<input matInput formControlName="id" [hidden]="true">-->
+                      <mat-form-field class="col-12">
+                        <input matInput formControlName="title" placeholder="Title">
+                        <mat-error *ngIf="registerForm.controls['title'].errors">* Champs Obligatoire.</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field class="col-12" >
+                        <textarea matInput formControlName="description" placeholder="description"></textarea>
+                        <mat-error *ngIf="registerForm.controls['description'].errors">* Champs Obligatoire.</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field class="col-12">
+                        <input matInput formControlName="destination" placeholder="destination">
+                        <mat-error *ngIf="registerForm.controls['destination'].errors">* Champs Obligatoire.</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field class="col-12">
+                        <mat-label>Re-Selectionné les Catégories</mat-label>
+                        <mat-select  formControlName="Categories" multiple>
+                          <mat-option *ngFor="let Categorie of CategoriesList" [value]="Categorie">{{Categorie.label}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="registerForm.controls['Categories'].errors">* Champs Obligatoire.</mat-error>
+                      </mat-form-field>
+
+
+                    </div>
+                    <div class="button-row">
+                      <button mat-raised-button matStepperNext color="primary" type="button" (click)="onSubmit()" [disabled]="!registerForm.valid" >Suivant</button>
+                      <button mat-raised-button color="warn" class="bclose" (click)="onClose()">Close</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+              <ng-template matStepLabel>Modification des Photos</ng-template>
+              <div>
+                <form [formGroup]="secondFormGroup">
+
+                  <div class="row" *ngFor="let image of PhotosList " >
+                    <div class="col-sm-6">
+                      <img src="http://localhost:8000/uploads/images/{{image.image}}"  width="100" height="80" class="margin">
+                      <button mat-fab color="warn" (click)="deleteImage(image.id)" matTooltip="Supprimer L'image">
+                        <mat-icon class="delete" >delete</mat-icon>
+                        <span class="delete"></span>
+                      </button>
+                  </div>
+                    </div>
+
+                  <input (change)="onFileChange($event)" type="file" id="fileUpload" multiple>
+                  <button mat-raised-button matStepperNext color="primary" (click)="onFileSelected($event)" class="btn btn-success spacer">Suivant</button>
+                </form>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Terminer</ng-template>
+              <div>
+                <i class='fas fa-check-circle ok'></i>
+                <span class="bclose">Voyage Modifier Avec sucess.</span><br />
+                <button mat-raised-button color="primary" (click)="valider()">Valider</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</mat-dialog-content>

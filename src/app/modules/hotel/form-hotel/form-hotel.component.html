@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>{{action}} a Hotel</h2>
+<mat-dialog-content>
+  <form [formGroup]="registerForm">
+    <div class="controles-container">
+      <input matInput formControlName="id" [hidden]="true">
+      <mat-form-field class="col-12">
+        <input matInput formControlName="name" placeholder="Hotel Name*">
+        <mat-error *ngIf="registerForm.controls['name'].errors?.minlength">Minimum 8 charactors needed.</mat-error>
+
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <mat-label>Rating</mat-label> <br/>
+        <input matInput placeholder="" [hidden]="true">
+        <ngx-input-star-rating matInput formControlName="rating"  placeholder="Rating"></ngx-input-star-rating>
+        <mat-error *ngIf="registerForm.controls['rating'].errors">* This field is mandatory.</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="button-row">
+      <button mat-raised-button color="primary" type="button" (click)="onSubmit()"
+              [disabled]="!registerForm.valid">{{action}}</button>
+      <button mat-raised-button color="warn"  class="bclose" (click)="onClose()">Close</button>
+    </div>
+  </form>
+
+</mat-dialog-content>
