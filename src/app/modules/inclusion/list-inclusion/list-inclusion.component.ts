@@ -95,7 +95,7 @@ export class ListInclusionComponent implements OnInit, OnDestroy {
   openModal(action: string, inclusion: Inclusion): void {
     const dialogRef = this.dialog.open(FormInclusionComponent, {
       width: '50%',
-      data: [inclusion, {'action': action === 'add' ? 'Ajouter' : 'Modifier'}]
+      data: [inclusion, {'action': action === 'Ajouter' ? 'Ajouter' : 'Modifier'}]
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getAllInclusions();
@@ -103,11 +103,11 @@ export class ListInclusionComponent implements OnInit, OnDestroy {
   }
 
   editClick(row) {
-    this.openModal('edit', row);
+    this.openModal('Modifier', row);
   }
 
   addNew() {
-    this.openModal('add', new Inclusion());
+    this.openModal('Ajouter', new Inclusion());
   }
 
   deleteClick(row) {

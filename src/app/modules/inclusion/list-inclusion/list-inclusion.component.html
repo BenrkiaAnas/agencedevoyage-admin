@@ -10,10 +10,10 @@
 
           <button mat-raised-button (click)="addNew()">
             <mat-icon>add</mat-icon>
-            Add Inclusion
+            Ajouter Inclusion
           </button>
           <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher...">
           </mat-form-field>
           <div>
 
@@ -28,7 +28,7 @@
 
                 <!-- Progress Column -->
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Label</th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom</th>
                   <td mat-cell *matCellDef="let row"> {{row.label}}</td>
                 </ng-container>
 

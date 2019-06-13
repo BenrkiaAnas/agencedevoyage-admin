@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>{{action}} a Inclusion</h2>
+<h2 mat-dialog-title>{{action}} une Inclusion</h2>
 <mat-dialog-content>
   <form [formGroup]="registerForm">
     <div class="controles-container">
       <input matInput formControlName="id" [hidden]="true">
       <mat-form-field class="col-12">
-        <input matInput formControlName="label" placeholder="Label *">
-        <mat-error *ngIf="registerForm.controls['label'].errors">* This field is mandatory.</mat-error>
+        <input matInput formControlName="label" placeholder="Nom *">
+        <mat-error *ngIf="registerForm.controls['label'].errors">* Champs Obligatoire.</mat-error>
 
       </mat-form-field>
       <mat-form-field class="col-12">

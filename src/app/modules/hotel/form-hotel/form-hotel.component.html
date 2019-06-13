@@ -1,10 +1,10 @@
-<h2 mat-dialog-title>{{action}} a Hotel</h2>
+<h2 mat-dialog-title>{{action}} un Hotel</h2>
 <mat-dialog-content>
   <form [formGroup]="registerForm">
     <div class="controles-container">
       <input matInput formControlName="id" [hidden]="true">
       <mat-form-field class="col-12">
-        <input matInput formControlName="name" placeholder="Hotel Name*">
+        <input matInput formControlName="name" placeholder="Nom hotel *">
         <mat-error *ngIf="registerForm.controls['name'].errors?.minlength">Minimum 8 charactors needed.</mat-error>
 
       </mat-form-field>
