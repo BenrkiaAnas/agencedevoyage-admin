@@ -79,7 +79,7 @@
                         <mat-icon class="delete" class="deleteC" >delete</mat-icon>
                         <span class="delete">Supprimer</span>
                       </button>
-                      <button mat-menu-item (click)="archivage(row)"  matTooltip="Archiver/Desarchiver" *ngIf="row.usingEtat == false">
+                      <button mat-menu-item (click)="archivage(row)"  matTooltip="Archiver/Desarchiver" *ngIf="row.usingEtat == false && dateParseRow > dateParseNow">
                         <mat-icon class="block" aria-label="Example icon-button with a heart icon" class="blockC" >block</mat-icon>
                         <span class="block" routerLink="">Archiver/Desarchiver</span>
                       </button>
